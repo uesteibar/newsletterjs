@@ -1,6 +1,4 @@
 newsletterjs.controller('EmailsCtrl', function($scope, database, $location){
-	$scope.title = "hello world I'm EmailsCtrl";
-
 	$scope.getEmails = function(){
 		database.getEmails().then(function (data) {
 			$scope.emails = data;

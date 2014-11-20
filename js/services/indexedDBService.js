@@ -146,6 +146,7 @@ newsletterjs.factory('database', function ($window, $q) {
             var store = trans.objectStore("email");
             lastIndexEmail++;
             email.id = lastIndexEmail;
+            email.date = new Date();
 
             var request = store.put(email);
 
