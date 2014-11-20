@@ -1,8 +1,34 @@
-<h1>{{title}}</h1>
   <div class="container">
-  
-  
 
 
 
-</div>
+    <form class="form-horizontal">
+      <fieldset>
+        <div class="form-group">
+          <legend class="col-lg-10">New Email</legend>
+          <button class="btn btn-primary btn-lg-1">Send</button>
+          <button class="btn btn-primary btn-lg-1" ng-click="saveEmail()">Save</button>
+        </div>
+        <div class="form-group">
+          <label for="inputEmail" class="col-lg-1 control-label">Recipients</label>
+          <div class="col-lg-11">
+            <input ng-model="email.dests" type="text" class="form-control" id="inputEmail" placeholder="separated by coma ','">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject" class="col-lg-1 control-label">Subject</label>
+          <div class="col-lg-11">
+          <input ng-model="email.subject" type="text" class="form-control" id="subject" placeholder="Subject">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="textArea" class="col-lg-1 control-label">Email</label>
+          <div class="col-lg-11">
+          <textarea ng-model="email.content" class="form-control" rows="15" id="textArea"></textarea>
+
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
+  </div>

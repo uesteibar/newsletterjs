@@ -1,3 +1,12 @@
 newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
-	$scope.title = "hello world I'm NewEmailCtrl";
+	$scope.saveEmail = function(){
+		database.saveEmail($scope.email).then(function () {
+			console.log($scope.email);
+                    $scope.email.dests = null;
+                    $scope.email.subject = null;
+                    $scope.email.content = null;
+                }, function (err) {
+                    console.log(err);
+                });
+	};
 });

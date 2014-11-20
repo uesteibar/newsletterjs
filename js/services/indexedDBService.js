@@ -8,12 +8,12 @@ newsletterjs.factory('database', function ($window, $q) {
 
     var open = function () {
         var deferred = $q.defer();
-        var version = 0;
+        var version = 1;
         var request = indexedDB.open("newspaperData", version);
 
         request.onupgradeneeded = function (e) {
             db = e.target.result;
-
+            console.log("hola");
             e.target.transaction.onerror = indexedDB.onerror;
 
             //EMAILS STORE

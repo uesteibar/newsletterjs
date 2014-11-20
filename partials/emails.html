@@ -2,8 +2,10 @@
   <div class="container">
   
 <div class="jumbotron" ng-repeat="email in emails">
-  <h1>{{email.title}}/h1>
-  <p>{{email.content}}</p>
-  <p><a class="btn btn-primary btn-lg">See more</a></p>
+  <h2>Subject: {{email.subject}}</h2>
+  <p>Content: {{email.content}}</p>
+  <button class="btn btn-primary btn-lg">See more</button>
+  <button ng-click="deleteEmail(email.id)" class="btn btn-primary btn-lg">Delete</button>
+  <button class="btn btn-primary btn-lg">Edit</button>
 </div>
 </div>

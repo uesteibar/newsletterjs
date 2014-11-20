@@ -1,5 +1,5 @@
 ###emails:
-		title: String
+		subject: String
 		content: String
-		dest: String
+		dest: String[]
 		sender: String
