@@ -1,0 +1,34 @@
+{
+  "name": "newsletterjs",
+  "version": "0.0.1",
+  "description": "A newsletter creating and sending app built in angularjs and node-webkit",
+  "main": "index.html",
+  "private": true,
+  "keywords":[
+    "node",
+    "webkit",
+    "win",
+    "osx"
+  ],
+  "window":{
+    "toolbar": true,
+    "resizable": true,
+    "width": 1000,
+    "heiht": 600,
+    "min_width": 600,
+    "min_height": 400,
+    "position": "center"    },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uesteibar/newsletterjs.git"
+  },
+  "author": "uesteibar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uesteibar/newsletterjs/issues"
+  },
+  "homepage": "https://github.com/uesteibar/newsletterjs"
+}
