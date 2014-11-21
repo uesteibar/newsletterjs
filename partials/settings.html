@@ -2,7 +2,7 @@
 
 <div class="container">
 <div class="col-lg-6">
-	<form class="form-horizontal">
+	<form class="form-horizontal" name="form">
 		<fieldset>
 			<div class="form-group">
 				<legend class="col-lg-10">New account</legend>
@@ -10,24 +10,24 @@
 			<div class="form-group">
 				<label for="accountName" class="col-lg-4 control-label">Account name</label>
 				<div class="col-lg-7">
-					<input ng-model="account.accountName" type="text" class="form-control" id="accountName" placeholder="account name">
+					<input required="true" ng-model="account.accountName" type="text" class="form-control" id="accountName" placeholder="account name">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="address" class="col-lg-4 control-label">Email address</label>
 				<div class="col-lg-7">
-					<input ng-model="account.address" type="text" class="form-control" id="address" placeholder="email@example.com">
+					<input required="true" ng-model="account.address" type="email" class="form-control" id="address" placeholder="email@example.com">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="password" class="col-lg-4 control-label">Password</label>
 				<div class="col-lg-7">
-					<input ng-model="account.password" type="password" class="form-control" id="password" placeholder="password">
+					<input required="true" ng-model="account.password" type="password" class="form-control" id="password" placeholder="password">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-lg-5"></div>
-				<button class="col-lg-5 btn btn-primary" ng-click="saveAccount()">Save</button>
+				<button ng-disabled="form.$invalid" class="col-lg-5 btn btn-primary" ng-click="saveAccount()">Save</button>
 
 
 			</div>
