@@ -22,8 +22,10 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 			$scope.account.address = null;
 			$scope.account.password = null;
 			$scope.getAccounts();
+			toastr.success("Account saved");
 		}, function (err) {
 			console.log(err);
+			toastr.error("Account couldn't be saved");
 		});
 	};
 

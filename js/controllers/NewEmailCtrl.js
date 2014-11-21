@@ -46,8 +46,10 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
 			$scope.email.dests = null;
 			$scope.email.subject = null;
 			$scope.email.content = null;
+			toastr.success("Email saved");
 		}, function (err) {
 			console.log(err);
+			toastr.error("Email couldn't be saved");
 		});
 	};
 
@@ -64,9 +66,11 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
 		$scope.transporter.sendMail(mailOptions, function(error, info){
 			if (error){
 				console.log(error);
+				toastr.error("Email couldn't be sent");
 			}else{
 				console.log('Email sent: ' + info.response);
 				$scope.email.sent = true;
+				toastr.success("Email sent");
 				database.saveEmail($scope.email).then(function () {
 					console.log($scope.email);
 					$scope.email.dests = null;

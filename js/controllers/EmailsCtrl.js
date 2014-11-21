@@ -16,7 +16,7 @@ newsletterjs.controller('EmailsCtrl', function($scope, database, $location){
 		database.deleteEmail(id).then(function () {
             $scope.getEmails();
         }, function (err) {
-            $window.alert(err);
+            toastr.error("Email couldn't be deleted");
         });
 	};
 	
