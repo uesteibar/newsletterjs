@@ -26,4 +26,13 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 			console.log(err);
 		});
 	};
+
+
+	$scope.deleteAccount = function(id){
+		database.deleteAccount(id).then(function () {
+            $scope.getAccounts();
+        }, function (err) {
+            $window.alert(err);
+        });
+	};
 });

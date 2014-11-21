@@ -5,7 +5,7 @@
 	<form class="form-horizontal">
 		<fieldset>
 			<div class="form-group">
-				<legend class="col-lg-10">Accounts</legend>
+				<legend class="col-lg-10">New account</legend>
 			</div>
 			<div class="form-group">
 				<label for="accountName" class="col-lg-4 control-label">Account name</label>
@@ -36,6 +36,9 @@
 	</form>
 	</div>
 	<div class="col-lg-6">
+	<div class="form-group">
+				<legend class="col-lg-10">Accounts</legend>
+			</div>
 <table class="table table-striped table-hover ">
 			<thead>
 				<tr>
@@ -49,7 +52,7 @@
 				<tr ng-repeat="account in accounts">
 					<td>{{account.accountName}}</td>
 					<td>{{account.address}}</td>
-					<td><button class="btn btn-primary btn-xs">X</button></td>
+					<td><button class="btn btn-primary btn-xs" ng-click="deleteAccount(account.id)">X</button></td>
 				</tr>
 
 			</tbody>
