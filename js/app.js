@@ -1,4 +1,4 @@
-var newsletterjs = angular.module('newsletterjs',['ngResource', 'ngRoute']);
+var newsletterjs = angular.module('newsletterjs',['ngResource', 'ngRoute', 'textAngular']);
 
 newsletterjs.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});

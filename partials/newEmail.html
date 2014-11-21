@@ -6,7 +6,7 @@
       <fieldset>
         <div class="form-group">
           <legend class="col-lg-10">New Email</legend>
-          <button class="btn btn-primary btn-lg-1">Send</button>
+          <button class="btn btn-primary btn-lg-1" ng-click="sendEmail()">Send</button>
           <button class="btn btn-primary btn-lg-1" ng-click="saveEmail()">Save</button>
         </div>
         <div class="form-group">
@@ -24,7 +24,8 @@
         <div class="form-group">
           <label for="textArea" class="col-lg-1 control-label">Email</label>
           <div class="col-lg-11">
-          <textarea ng-model="email.content" class="form-control" rows="15" id="textArea"></textarea>
+          <text-angular ng-model="email.content" rows="15" id="textArea"></text-angular>
+
 
           </div>
         </div>

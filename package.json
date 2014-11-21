@@ -4,20 +4,21 @@
   "description": "A newsletter creating and sending app built in angularjs and node-webkit",
   "main": "index.html",
   "private": true,
-  "keywords":[
+  "keywords": [
     "node",
     "webkit",
     "win",
     "osx"
   ],
-  "window":{
+  "window": {
     "toolbar": true,
     "resizable": true,
     "width": 1000,
     "heiht": 600,
     "min_width": 600,
     "min_height": 400,
-    "position": "center"    },
+    "position": "center"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/uesteibar/newsletterjs/issues"
   },
-  "homepage": "https://github.com/uesteibar/newsletterjs"
+  "homepage": "https://github.com/uesteibar/newsletterjs",
+  "dependencies": {
+    "nodemailer": "^1.3.0"
+  }
 }

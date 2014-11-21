@@ -2,7 +2,6 @@
   
 <div class="jumbotron" ng-repeat="email in emails | orderBy: '-date'">
   <h2>Subject: {{email.subject}}</h2>
-  <p>Content: {{email.content}}</p>
   <p>Sent: {{email.sent}}</p>
   <p>{{email.date | date:'MM/dd/yyyy @ h:mma'}}</p>
   <button class="btn btn-primary btn-lg">See more</button>
