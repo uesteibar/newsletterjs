@@ -4,16 +4,17 @@ newsletterjs.factory('database', function ($window, $q) {
     var indexedDB = $window.indexedDB;
     var db = null;
     var lastIndexEmail = 0;
+    var lastIndexAccount = 0;
     var lastIndexProject = 1;
 
     var open = function () {
         var deferred = $q.defer();
-        var version = 1;
-        var request = indexedDB.open("newspaperData", version);
+        var version = 2;
+        var request = indexedDB.open("newsletterjs", version);
 
         request.onupgradeneeded = function (e) {
             db = e.target.result;
-            console.log("hola");
+            console.log("newsletterjs IndexedDB started");
             e.target.transaction.onerror = indexedDB.onerror;
 
             //EMAILS STORE
@@ -22,6 +23,15 @@ newsletterjs.factory('database', function ($window, $q) {
             }
 
             var store = db.createObjectStore("email", {
+                keyPath: "id"
+            });
+
+            //USERS STORE
+            if (db.objectStoreNames.contains("account")) {
+                db.deleteObjectStore("account");
+            }
+
+            var accountStore = db.createObjectStore("account", {
                 keyPath: "id"
             });
             
@@ -164,9 +174,92 @@ newsletterjs.factory('database', function ($window, $q) {
     
     // END OF EMAILS CRUD //
     
-    
+    // USERS CRUD //
+
+    var saveAccount = function (account) {
+        var deferred = $q.defer();
+
+        if (db === null) {
+            deferred.reject("IndexDB is not opened yet!");
+        } else {
+            var trans = db.transaction(["account"], "readwrite");
+            var store = trans.objectStore("account");
+            lastIndexAccount++;
+            account.id = lastIndexAccount;
+
+            var request = store.put(account);
+
+            request.onsuccess = function (e) {
+                deferred.resolve();
+            };
+
+            request.onerror = function (e) {
+                console.log(e.value);
+                deferred.reject("Account item couldn't be added!");
+            };
+        }
+        return deferred.promise;
+    };
    
-    
+    var getAccounts = function () {
+        var deferred = $q.defer();
+
+        if (db === null) {
+            deferred.reject("IndexDB is not opened yet!");
+        } else {
+            var trans = db.transaction(["account"], "readwrite");
+            var store = trans.objectStore("account");
+            var accounts = [];
+
+            // Get everything in the store;
+            var keyRange = IDBKeyRange.lowerBound(0);
+            var cursorRequest = store.openCursor(keyRange);
+
+            cursorRequest.onsuccess = function (e) {
+                var result = e.target.result;
+                if (result === null || result === undefined) {
+                    deferred.resolve(accounts);
+                } else {
+                    accounts.push(result.value);
+                    if (result.value.id > lastIndexAccount) {
+                        lastIndexAccount= result.value.id;
+                    }
+                    result.continue();
+                }
+            };
+
+            cursorRequest.onerror = function (e) {
+                console.log(e.value);
+                deferred.reject("Something went wrong!!!");
+            };
+        }
+
+        return deferred.promise;
+    };
+
+    var deleteAccount = function (id) {
+        var deferred = $q.defer();
+
+        if (db === null) {
+            deferred.reject("IndexDB is not opened yet!");
+        } else {
+            var trans = db.transaction(["account"], "readwrite");
+            var store = trans.objectStore("account");
+
+            var request = store.delete(id);
+
+            request.onsuccess = function (e) {
+                deferred.resolve();
+            };
+
+            request.onerror = function (e) {
+                console.log(e.value);
+                deferred.reject("Account item couldn't be deleted");
+            };
+        }
+
+        return deferred.promise;
+    };
     
     
     
@@ -176,7 +269,11 @@ newsletterjs.factory('database', function ($window, $q) {
         getEmails: getEmails,
         saveEmail: saveEmail,
         deleteEmail: deleteEmail,
-        updateEmail: updateEmail
+        updateEmail: updateEmail,
+
+        getAccounts: getAccounts,
+        saveAccount: saveAccount,
+        deleteAccount: deleteAccount
     };
 
 });

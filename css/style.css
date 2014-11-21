@@ -1,3 +1,13 @@
 .textAngular{
 	margin-top: 2em;
 }
+
+.superTitle{
+	font-size: 10em;
+	display: inline-block;
+}
+
+.miniTitle{
+	font-size: 0.15em;
+	display: inline-block;
+}

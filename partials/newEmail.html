@@ -10,6 +10,13 @@
           <button class="btn btn-primary btn-lg-1" ng-click="saveEmail()">Save</button>
         </div>
         <div class="form-group">
+      <label for="select" class="col-lg-1 control-label">Account</label>
+      <div class="col-lg-11">
+        <select ng-model="selectedAccount" ng-options="account.accountName for account in accounts" ng-change="setAccount()" class="form-control" id="select">
+        </select>
+      </div>
+    </div>
+        <div class="form-group">
           <label for="inputEmail" class="col-lg-1 control-label">Recipients</label>
           <div class="col-lg-11">
             <input ng-model="email.dests" type="text" class="form-control" id="inputEmail" placeholder="separated by coma ','">
