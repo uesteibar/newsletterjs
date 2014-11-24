@@ -1,3 +1,6 @@
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+
 .textAngular{
 	margin-top: 2em;
 }
@@ -10,4 +13,14 @@
 .miniTitle{
 	font-size: 0.15em;
 	display: inline-block;
+}
+.header-cont{
+	margin-bottom: 5em;
+}
+
+@media screen and (max-width: 1024px) {
+    .superTitle{
+		font-size: 8em;
+		display: inline-block;
+	}
 }

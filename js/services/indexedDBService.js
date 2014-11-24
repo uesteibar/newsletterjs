@@ -5,11 +5,11 @@ newsletterjs.factory('database', function ($window, $q) {
     var db = null;
     var lastIndexEmail = 0;
     var lastIndexAccount = 0;
-    var lastIndexProject = 1;
+    var lastIndexEmailList = 0;
 
     var open = function () {
         var deferred = $q.defer();
-        var version = 2;
+        var version = 3;
         var request = indexedDB.open("newsletterjs", version);
 
         request.onupgradeneeded = function (e) {
@@ -26,12 +26,21 @@ newsletterjs.factory('database', function ($window, $q) {
                 keyPath: "id"
             });
 
-            //USERS STORE
+            //ACCOUNTS STORE
             if (db.objectStoreNames.contains("account")) {
                 db.deleteObjectStore("account");
             }
 
             var accountStore = db.createObjectStore("account", {
+                keyPath: "id"
+            });
+
+            //EMAIL LISTS STORE
+            if (db.objectStoreNames.contains("emaillist")) {
+                db.deleteObjectStore("emaillist");
+            }
+
+            var accountStore = db.createObjectStore("emaillist", {
                 keyPath: "id"
             });
             
@@ -260,6 +269,133 @@ newsletterjs.factory('database', function ($window, $q) {
 
         return deferred.promise;
     };
+
+    //END OF ACCOUNTS CRUD
+
+
+    // EMAIL LISTS CRUD
+
+
+    var saveEmailList = function (EmailList) {
+        var deferred = $q.defer();
+
+        if (db === null) {
+            deferred.reject("IndexDB is not opened yet!");
+        } else {
+            var trans = db.transaction(["emaillist"], "readwrite");
+            var store = trans.objectStore("emaillist");
+            lastIndexEmailList++;
+            EmailList.id = lastIndexEmailList;
+
+            var request = store.put(EmailList);
+
+            request.onsuccess = function (e) {
+                deferred.resolve();
+            };
+
+            request.onerror = function (e) {
+                console.log(e.value);
+                deferred.reject("Email list item couldn't be added!");
+            };
+        }
+        return deferred.promise;
+    };
+
+
+    var getEmailLists = function () {
+        var deferred = $q.defer();
+
+        if (db === null) {
+            deferred.reject("IndexDB is not opened yet!");
+        } else {
+            var trans = db.transaction(["emaillist"], "readwrite");
+            var store = trans.objectStore("emaillist");
+            var emaillists = [];
+
+            // Get everything in the store;
+            var keyRange = IDBKeyRange.lowerBound(0);
+            var cursorRequest = store.openCursor(keyRange);
+
+            cursorRequest.onsuccess = function (e) {
+                var result = e.target.result;
+                if (result === null || result === undefined) {
+                    deferred.resolve(emaillists);
+                } else {
+                    emaillists.push(result.value);
+                    if (result.value.id > lastIndexEmailList) {
+                        lastIndexEmailList= result.value.id;
+                    }
+                    result.continue();
+                }
+            };
+
+            cursorRequest.onerror = function (e) {
+                console.log(e.value);
+                deferred.reject("Something went wrong!!!");
+            };
+        }
+
+        return deferred.promise;
+    };
+
+
+var updateEmailList = function (id, emaillist) {
+        var deferred = $q.defer();
+
+        if (db === null) {
+            deferred.reject("IndexDB is not opened yet!");
+        } else {
+            var trans = db.transaction(["emaillist"], "readwrite");
+            var store = trans.objectStore("emaillist");
+
+            var getrequest = store.get(id);
+
+            getrequest.onsuccess = function (e) {
+                getrequest.result = emaillist;
+
+
+                var request = store.put(getrequest.result);
+
+                request.onsuccess = function (e) {
+                    deferred.resolve();
+                };
+
+                request.onerror = function (e) {
+                    console.log(e.value);
+                    deferred.reject("Email list item couldn't be updated!");
+                };
+
+            }
+        }
+        return deferred.promise;
+
+    };
+
+var deleteEmailList = function (id) {
+        var deferred = $q.defer();
+
+        if (db === null) {
+            deferred.reject("IndexDB is not opened yet!");
+        } else {
+            var trans = db.transaction(["emaillist"], "readwrite");
+            var store = trans.objectStore("emaillist");
+
+            var request = store.delete(id);
+
+            request.onsuccess = function (e) {
+                deferred.resolve();
+            };
+
+            request.onerror = function (e) {
+                console.log(e.value);
+                deferred.reject("Email list item couldn't be deleted");
+            };
+        }
+
+        return deferred.promise;
+    };
+
+    //END OF EMAIL LISTS CRUD
     
     
     
@@ -273,7 +409,12 @@ newsletterjs.factory('database', function ($window, $q) {
 
         getAccounts: getAccounts,
         saveAccount: saveAccount,
-        deleteAccount: deleteAccount
+        deleteAccount: deleteAccount,
+
+        getEmailLists: getEmailLists,
+        saveEmailList: saveEmailList,
+        deleteEmailList: deleteEmailList,
+        updateEmailList: updateEmailList
     };
 
 });
