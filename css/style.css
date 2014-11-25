@@ -131,4 +131,11 @@
 		font-size: 8em;
 		display: inline-block;
 	}
+
+  
 }
+
+
+.selectableGrid{
+    cursor: pointer;
+  }

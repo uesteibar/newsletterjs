@@ -72,4 +72,10 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
             $window.alert(err);
         });
 	};
+
+	$scope.openList = function(emaillist){
+		alert("List name: "+emaillist.name);
+	};
+
+
 });
