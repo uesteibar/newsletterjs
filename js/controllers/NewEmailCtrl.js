@@ -38,6 +38,7 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
 
 	};
 
+	$scope.email = {sent: false, dests: "", subject: "", content: ""};
 
 	$scope.saveEmail = function(){
 		$scope.email.sent = false;
