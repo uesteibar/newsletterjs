@@ -11,12 +11,12 @@
     "osx"
   ],
   "window": {
-    "toolbar": false,
+    "toolbar": true,
     "resizable": true,
     "width": 1000,
     "heiht": 600,
-    "min_width": 600,
-    "min_height": 400,
+    "min_width": 1000,
+    "min_height": 600,
     "position": "center"
   },
   "scripts": {

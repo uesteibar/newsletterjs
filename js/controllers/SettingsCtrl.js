@@ -1,5 +1,6 @@
 newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 	
+	$scope.currentTab = 'emaillists';
 
 
 	$scope.getAccounts = function(){
@@ -26,6 +27,7 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 
 	$scope.getEmailLists();
 
+	$scope.account = {accountName: "", address: "", password: ""};
 	$scope.saveAccount = function(){
 		database.saveAccount($scope.account).then(function () {
 			console.log($scope.account);
@@ -40,6 +42,7 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 		});
 	};
 
+	$scope.emaillist = {name:""};
 	$scope.saveEmailList = function(){
 		database.saveEmailList($scope.emaillist).then(function () {
 			console.log($scope.emaillist);
