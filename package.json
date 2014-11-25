@@ -11,7 +11,9 @@
     "osx"
   ],
   "window": {
-    "toolbar": true,
+    "title": "NewsLetterJS",
+    "fullscreen": false,
+    "toolbar": true,  
     "resizable": true,
     "width": 1000,
     "heiht": 600,
