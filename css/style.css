@@ -139,3 +139,11 @@
 .selectableGrid{
     cursor: pointer;
   }
+
+
+
+
+  .scrollableGrid { width: 100%; overflow; hidden;}
+tr {display: block; }
+th, td { width: 300px; }
+tbody { display: block; height: 10em; overflow: auto;}
