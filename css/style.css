@@ -109,6 +109,10 @@
   margin-top: 1em;
 }
 
+.margin-top-double{
+  margin-top: 3em;
+}
+
 .textAngular{
 	margin-top: 2em;
 }
@@ -143,7 +147,7 @@
 
 
 
-  .scrollableGrid { width: 100%; overflow; hidden;}
+  .scrollableGrid { aoverflow; hidden;}
 tr {display: block; }
 th, td { width: 300px; }
 tbody { display: block; height: 10em; overflow: auto;}

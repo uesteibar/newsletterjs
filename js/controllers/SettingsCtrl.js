@@ -1,6 +1,7 @@
 newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 	
 	$scope.currentTab = 'emaillists';
+	$scope.newAddress = '';
 
 
 	$scope.getAccounts = function(){
@@ -42,7 +43,7 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 		});
 	};
 
-	$scope.emaillist = {name:""};
+	$scope.emaillist = {name:"", addresses: []};
 	$scope.saveEmailList = function(){
 		database.saveEmailList($scope.emaillist).then(function () {
 			console.log($scope.emaillist);
@@ -74,7 +75,20 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 	};
 
 	$scope.openList = function(emaillist){
-		alert("List name: "+emaillist.name);
+		$scope.currentList = emaillist;
+		console.log($scope.currentList);
+	};
+
+	$scope.addAddressToList = function(){
+		$scope.currentList.addresses.push($scope.newAddress);
+		$scope.currentList.name = "actualizado";
+		database.updateEmailList($scope.currentList.id, $scope.currentList).then(function () {
+
+			toastr.success("Address added");
+		}, function (err) {
+			console.log(err);
+			toastr.error("Address couldn't be added");
+		});
 	};
 
 
