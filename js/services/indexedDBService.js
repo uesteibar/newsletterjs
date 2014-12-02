@@ -355,7 +355,7 @@ var updateEmailList = function (id, emaillist) {
                 getrequest.result = emaillist;
 
 
-                var request = store.put(getrequest.result);
+                var request = store.put(emaillist);
 
                 request.onsuccess = function (e) {
                     deferred.resolve();
