@@ -1,4 +1,32 @@
 newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
+	var emaillists;
+	$scope.getEmailLists = function(){
+		database.getEmailLists().then(function (data) {
+			emaillists = data;
+
+			var i = 0;
+			for (i=0; i<emaillists.length; i++){
+				var emails = [];
+				emails = emaillists[i].addresses;
+				var toAdd = {
+					name: emaillists[i].name,
+					id: emaillists[i].id,
+					emails: emails,
+					selected: true
+				};
+		$scope.listsToSelect.push(toAdd);
+
+	}
+                }, function (err) {
+                    console.log(err);
+                });
+	};
+
+	$scope.getEmailLists();
+
+	$scope.listsToSelect = [];
+
+
 	$scope.getAccounts = function(){
 		database.getAccounts().then(function (data) {
 			$scope.accounts = data;
@@ -56,11 +84,21 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
 
 
 	$scope.sendEmail = function(){
-		console.log($scope.email.subject);
+		var recipients = "";
+		var i = 0;
+		for (i=0; i<$scope.listsToSelect.length; i++){
+			if ($scope.listsToSelect[i].selected == true) {
+				var j = 0;
+				recipients += $scope.listsToSelect[i].emails.join(",") + ", ";
+			}
+		}
+
+
+		console.log(recipients);
 		$scope.email.subject += " ";
 		var mailOptions = {
 		    from: $scope.selectedAccount.address	, // sender address
-		    to: $scope.email.dests, // list of receivers
+		    to: recipients, // list of receivers
 		    subject: $scope.email.subject, // Subject line
 		    text: $scope.email.content, // plaintext body
 		    html: $scope.email.content // html body

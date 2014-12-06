@@ -16,10 +16,18 @@
         </select>
       </div>
     </div>
+        
         <div class="form-group">
-          <label for="inputEmail" class="col-lg-1 control-label">Recipients</label>
+          <label for="multisubject" class="col-lg-1 control-label">Subject</label>
           <div class="col-lg-11">
-            <input ng-model="email.dests" type="text" class="form-control" id="inputEmail" placeholder="separated by coma ','">
+            <multi-select    
+              input-model="listsToSelect"
+              button-label="name selected"
+              default-label="Select email lists"
+              item-label="name selected"
+              tick-property="selected"
+            >
+            </multi-select>
           </div>
         </div>
         <div class="form-group">
@@ -28,6 +36,8 @@
           <input ng-model="email.subject" type="text" class="form-control" id="subject" placeholder="Subject">
           </div>
         </div>
+
+        
         <div class="form-group">
           <label for="textArea" class="col-lg-1 control-label">Email</label>
           <div class="col-lg-11">
