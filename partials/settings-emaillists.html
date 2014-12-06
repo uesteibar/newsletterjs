@@ -61,9 +61,9 @@
 	<div class="form-group col-md-5">
 				<label for="addAddres" class="col-md-2 control-label">Add</label>
 				<div class="col-md-6">
-					<input required="true" ng-model="newAddress" type="email" class="form-control" id="addAddres" placeholder="address">
+					<input required="true" name="newAddress" ng-model="newAddress.address" type="email" class="form-control" id="addAddres" placeholder="address">
 				</div>
-				<button ng-disabled="newAddress == ''" class="col-md-3 btn btn-primary" ng-click="addAddressToList()">Save</button>
+				<button ng-disabled="!subform.newAddress.$valid" class="col-md-3 btn btn-primary" ng-click="addAddressToList()">Save</button>
 			</div>
 
 			<div class="form-group col-md-5">
@@ -89,7 +89,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr class="selectableGrid" ng-repeat="address in currentList.addresses" ng-click="openList(emaillist)">
+			<tr class="selectableGrid" ng-repeat="address in currentList.addresses">
 
 				<td>{{address}}</td>
 

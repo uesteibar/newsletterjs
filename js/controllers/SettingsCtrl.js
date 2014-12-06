@@ -1,7 +1,7 @@
 newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 	
 	$scope.currentTab = 'emaillists';
-	$scope.newAddress = '';
+	
 
 
 	$scope.getAccounts = function(){
@@ -79,9 +79,9 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 		console.log($scope.currentList);
 	};
 
+	$scope.newAddress = {name:"", address: ""};
 	$scope.addAddressToList = function(){
-		$scope.currentList.addresses.push($scope.newAddress);
-		$scope.currentList.name = "actualizado";
+		$scope.currentList.addresses.push($scope.newAddress.address);
 		database.updateEmailList($scope.currentList.id, $scope.currentList).then(function () {
 
 			toastr.success("Address added");
