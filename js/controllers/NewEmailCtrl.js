@@ -56,6 +56,8 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
 
 
 	$scope.sendEmail = function(){
+		console.log($scope.email.subject);
+		$scope.email.subject += " ";
 		var mailOptions = {
 		    from: $scope.selectedAccount.address	, // sender address
 		    to: $scope.email.dests, // list of receivers
@@ -63,6 +65,7 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
 		    text: $scope.email.content, // plaintext body
 		    html: $scope.email.content // html body
 		};
+		console.log(mailOptions.subject);
 
 		$scope.transporter.sendMail(mailOptions, function(error, info){
 			if (error){
