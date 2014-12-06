@@ -89,7 +89,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr class="selectableGrid" ng-repeat="address in currentList.addresses">
+			<tr class="selectableGrid" ng-repeat="address in currentList.addresses | filter: searchAddress">
 
 				<td>{{address}}</td>
 
