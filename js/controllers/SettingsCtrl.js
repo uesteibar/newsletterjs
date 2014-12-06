@@ -44,6 +44,7 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 	};
 
 	$scope.emaillist = {name:"", addresses: []};
+	$scope.currentList = {name:"", addresses: []};
 	$scope.saveEmailList = function(){
 		database.saveEmailList($scope.emaillist).then(function () {
 			console.log($scope.emaillist);
@@ -69,6 +70,7 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 	$scope.deleteEmailList = function(id){
 		database.deleteEmailList(id).then(function () {
             $scope.getEmailLists();
+            $scope.currentList = null;
         }, function (err) {
             $window.alert(err);
         });
@@ -83,7 +85,7 @@ newsletterjs.controller('SettingsCtrl', function($scope, database, $location){
 	$scope.addAddressToList = function(){
 		$scope.currentList.addresses.push($scope.newAddress.address);
 		database.updateEmailList($scope.currentList.id, $scope.currentList).then(function () {
-
+			$scope.newAddress.address = null;
 			toastr.success("Address added");
 		}, function (err) {
 			console.log(err);
