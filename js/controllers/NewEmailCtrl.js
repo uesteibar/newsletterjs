@@ -90,7 +90,10 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location, cf
 		for (i=0; i<$scope.listsToSelect.length; i++){
 			if ($scope.listsToSelect[i].selected == true) {
 				var j = 0;
-				recipients += $scope.listsToSelect[i].emails.join(",") + ", ";
+				recipients += $scope.listsToSelect[i].emails.join(",") ;
+				if (i!=$scope.listsToSelect.length - 1){
+					recipients += ", ";
+				}
 			}
 		}
 
