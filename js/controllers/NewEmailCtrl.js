@@ -1,4 +1,4 @@
-newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
+newsletterjs.controller('NewEmailCtrl', function($scope, database, $location, cfpLoadingBar){
 	var emaillists;
 	$scope.getEmailLists = function(){
 		database.getEmailLists().then(function (data) {
@@ -84,6 +84,7 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
 
 
 	$scope.sendEmail = function(){
+		cfpLoadingBar.start();
 		var recipients = "";
 		var i = 0;
 		for (i=0; i<$scope.listsToSelect.length; i++){
@@ -98,7 +99,7 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
 		$scope.email.subject += " ";
 		var mailOptions = {
 		    from: $scope.selectedAccount.address	, // sender address
-		    to: recipients, // list of receivers
+		    bcc: recipients, // list of receivers
 		    subject: $scope.email.subject, // Subject line
 		    text: $scope.email.content, // plaintext body
 		    html: $scope.email.content // html body
@@ -109,9 +110,11 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location){
 			if (error){
 				console.log(error);
 				toastr.error("Email couldn't be sent");
+				cfpLoadingBar.complete();
 			}else{
 				console.log('Email sent: ' + info.response);
 				$scope.email.sent = true;
+				cfpLoadingBar.complete();
 				toastr.success("Email sent");
 				database.saveEmail($scope.email).then(function () {
 					console.log($scope.email);
