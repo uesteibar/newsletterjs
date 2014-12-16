@@ -2,6 +2,7 @@ newsletterjs.controller('HeaderCtrl', function($scope, database, $location){
 
 
 	$scope.isActive = function(viewLocation){
-		return viewLocation === $location.path();
+		var array = $location.path().split("/");
+		return viewLocation === array[1];
 	};
 });
