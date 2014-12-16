@@ -13,7 +13,7 @@
   "window": {
     "title": "NewsLetterJS",
     "fullscreen": false,
-    "toolbar": true,  
+    "toolbar": false,  
     "resizable": true,
     "width": 1000,
     "heiht": 600,
