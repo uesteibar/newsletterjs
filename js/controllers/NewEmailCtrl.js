@@ -129,7 +129,11 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location, $r
 
 	$scope.saveEmail = function(){
 
-		if (!editMode){
+		if (editMode){
+			database.deleteEmail($scope.email.id).then(function () {
+	        }, function (err) {
+	        });
+		}
 
 			$scope.email.sent = false;
 			$scope.email.destLists = [];
@@ -150,9 +154,7 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location, $r
 				console.log(err);
 				toastr.error("Email couldn't be saved");
 			});
-		}else{
-
-		}
+		
 	};
 
 
