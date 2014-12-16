@@ -9,7 +9,7 @@ newsletterjs.factory('database', function ($window, $q) {
 
     var open = function () {
         var deferred = $q.defer();
-        var version = 26;
+        var version = 27;
         var request = indexedDB.open("newsletterjs", version);
 
         request.onupgradeneeded = function (e) {

@@ -70,9 +70,21 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location, cf
 
 	$scope.saveEmail = function(){
 		$scope.email.sent = false;
+		$scope.email.destLists = [];
+
+		for (i=0; i<$scope.listsToSelect.length; i++){
+			if ($scope.listsToSelect[i].selected == true) {
+				$scope.email.destLists.push($scope.listsToSelect[i].id);
+				console.log($scope.email);
+			}
+		}
+
+
+		
+
+
 		database.saveEmail($scope.email).then(function () {
 			console.log($scope.email);
-			$scope.email.dests = null;
 			$scope.email.subject = null;
 			$scope.email.content = null;
 			toastr.success("Email saved");

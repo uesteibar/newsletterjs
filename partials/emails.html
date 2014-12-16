@@ -5,6 +5,6 @@
   <p>Sent: {{email.sent}}</p>
   <p>{{email.date | date:'MM/dd/yyyy @ h:mma'}}</p>
   <button ng-click="deleteEmail(email.id)" class="btn btn-primary btn-lg">Delete</button>
-  <button href="#/" class="btn btn-primary btn-lg">Delete</button>
+  <button ng-click="editEmail(email.id)" class="btn btn-primary btn-lg">Edit</button>
 </div>
 </div>

@@ -19,5 +19,10 @@ newsletterjs.controller('EmailsCtrl', function($scope, database, $location){
             toastr.error("Email couldn't be deleted");
         });
 	};
+
+	$scope.editEmail = function(id){
+		console.log(id);
+		$location.path('/new/'+id);
+	};
 	
 });
