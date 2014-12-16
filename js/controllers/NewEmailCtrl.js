@@ -1,5 +1,61 @@
-newsletterjs.controller('NewEmailCtrl', function($scope, database, $location, cfpLoadingBar){
+newsletterjs.controller('NewEmailCtrl', function($scope, database, $location, $routeParams, cfpLoadingBar){
 	var emaillists;
+	var editMode = false;
+	$scope.email = {sent: false, subject: "", content: "", destLists: []};
+	
+	if ($routeParams.id != 0){editMode = true}
+
+
+	$scope.initEditMode = function(){
+
+		if (editMode){
+			database.getEmails().then(function (data) {
+			var emails = data;
+			var i = 0;
+			for (i=0; i<emails.length; i++){
+				if (emails[i].id == $routeParams.id){
+					$scope.email = emails[i];
+					console.log($scope.email);
+				}
+			}
+
+                }, function (err) {
+                    console.log(err);
+                });
+		}
+
+
+		database.getEmailLists().then(function (data) {
+			emaillists = data;
+			var i = 0;
+			for (i=0; i<emaillists.length; i++){
+				var emails = [];
+				emails = emaillists[i].addresses;
+
+				var toInsert = false;
+				var j = 0;
+				console.log($scope.email);
+				console.log(emaillists);
+				for (j=0; j<$scope.email.destLists.length; j++){
+					if (emaillists[i].id == $scope.email.destLists[j]){
+						toInsert = true;
+					}
+				}
+
+				var toAdd = {
+					name: emaillists[i].name,
+					id: emaillists[i].id,
+					emails: emails,
+					selected: toInsert
+				};
+				$scope.listsToSelect.push(toAdd);
+
+			}
+                }, function (err) {
+                    console.log(err);
+                });
+	};
+
 	$scope.getEmailLists = function(){
 		database.getEmailLists().then(function (data) {
 			emaillists = data;
@@ -14,16 +70,19 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location, cf
 					emails: emails,
 					selected: true
 				};
-		$scope.listsToSelect.push(toAdd);
+				$scope.listsToSelect.push(toAdd);
 
-	}
+			}
                 }, function (err) {
                     console.log(err);
                 });
 	};
 
-	$scope.getEmailLists();
-
+	if (editMode){
+		$scope.initEditMode();
+	}else{
+		$scope.getEmailLists();
+	}
 	$scope.listsToSelect = [];
 
 
@@ -66,32 +125,34 @@ newsletterjs.controller('NewEmailCtrl', function($scope, database, $location, cf
 
 	};
 
-	$scope.email = {sent: false, dests: "", subject: "", content: ""};
+	
 
 	$scope.saveEmail = function(){
-		$scope.email.sent = false;
-		$scope.email.destLists = [];
 
-		for (i=0; i<$scope.listsToSelect.length; i++){
-			if ($scope.listsToSelect[i].selected == true) {
-				$scope.email.destLists.push($scope.listsToSelect[i].id);
-				console.log($scope.email);
+		if (!editMode){
+
+			$scope.email.sent = false;
+			$scope.email.destLists = [];
+
+			for (i=0; i<$scope.listsToSelect.length; i++){
+				if ($scope.listsToSelect[i].selected == true) {
+					$scope.email.destLists.push($scope.listsToSelect[i].id);
+					console.log($scope.email);
+				}
 			}
+
+			database.saveEmail($scope.email).then(function () {
+				console.log($scope.email);
+				$scope.email.subject = null;
+				$scope.email.content = null;
+				toastr.success("Email saved");
+			}, function (err) {
+				console.log(err);
+				toastr.error("Email couldn't be saved");
+			});
+		}else{
+
 		}
-
-
-		
-
-
-		database.saveEmail($scope.email).then(function () {
-			console.log($scope.email);
-			$scope.email.subject = null;
-			$scope.email.content = null;
-			toastr.success("Email saved");
-		}, function (err) {
-			console.log(err);
-			toastr.error("Email couldn't be saved");
-		});
 	};
 
 
