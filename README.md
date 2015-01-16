@@ -6,5 +6,5 @@
 
 
 ##Stack
-This project is build using AngularJS + Node-webkit and Bootstrap 3 (flatly theme).     
+This project is built using AngularJS + Node-webkit and Bootstrap 3 (flatly theme).     
 It uses IndexedDB as the local DDBB (implementation can be found at 'indexedDBService.js')
